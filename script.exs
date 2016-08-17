@@ -1,4 +1,4 @@
-defmodule PublicGoods do
+defmodule AllaisParadox do
   use Xee.ThemeScript
   require Logger
 
@@ -7,9 +7,9 @@ defmodule PublicGoods do
   require_file "scripts/participant.exs"
   require_file "scripts/actions.exs"
 
-  alias PublicGoods.Main
-  alias PublicGoods.Host
-  alias PublicGoods.Participant
+  alias AllaisParadox.Main
+  alias AllaisParadox.Host
+  alias AllaisParadox.Participant
 
   # Callbacks
   def script_type do
@@ -35,7 +35,6 @@ defmodule PublicGoods do
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
-      {"match", _} -> Host.match(data)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
@@ -46,7 +45,6 @@ defmodule PublicGoods do
     Logger.debug("[Public Goods] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
-      {"invest", investment} -> Participant.invest(data, id, investment)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

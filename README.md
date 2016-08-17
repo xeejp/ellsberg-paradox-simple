@@ -1,1 +1,1 @@
-# Public Goods
+# Allais Paradox

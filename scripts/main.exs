@@ -1,42 +1,24 @@
-defmodule PublicGoods.Main do
-  alias PublicGoods.Actions
+defmodule AllaisParadox.Main do
+  alias AllaisParadox.Actions
 
-  @pages ["waiting", "description", "experiment", "result"]
-  @states ["investment", "investment_result", "punishment", "punishment_result"]
+  @pages ["waiting", "experiment", "result"]
+  @sequence ["question1", "question2", "answered"]
 
   def pages, do: @pages
-  def states, do: @states
+  def sequence, do: @sequence
 
   def init do
     %{
       page: "waiting",
       participants: %{},
-      groups: %{},
-      punishment: false,
-      money: 1000,
-      roi: 2, # Return on Investment
-      group_size: 4 # Number of members
     }
   end
 
   def new_participant do
     %{
-      group: nil,
-      money: 0,
-      profit: 0,
-      invested: false,
-      investment: 0,
-      punished: false,
-      punishment: 0
-    }
-  end
-
-  def new_group(members) do
-    %{
-      members: members,
-      counter: 0,
-      profit: 0,
-      state: "investment",
+      sequence : "question1",
+      question1: 0,
+      question2: 0,
     }
   end
 

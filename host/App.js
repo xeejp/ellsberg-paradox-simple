@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchContents } from './actions'
 
 import Users from './Users'
-import MatchingButton from './MatchingButton'
 import PageButtons from './PageButtons'
 
 const mapStateToProps = ({loading}) => ({
@@ -30,7 +29,6 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
-          <MatchingButton />
           <Users />
         </div>
       )

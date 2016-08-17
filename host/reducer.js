@@ -10,26 +10,6 @@ const reducer = concatenateReducers([
     'join': ({ participants }, { payload: { id, participant } }) => ({
       participants: Object.assign({}, participants, {[id]: participant})
     }),
-    'matched': (_, { payload: { participants, groups } }) => ({
-      participants, groups
-    }),
-    'invest': ({ participants }, { payload: { id, investment } }) => {
-      const result = Object.assign({}, participants)
-      result[id].invested = true
-      result[id].investment = investment
-      return { participants: result }
-    },
-    'investment result': ({ participants, groups }, { payload: {
-      participantID, investment, groupID, profit
-    }}) => {
-      const newParticipants = Object.assign({}, participants)
-      newParticipants[participantID].invested = true
-      newParticipants[participantID].investment = investment
-      const newGroups = Object.assign({}, groups)
-      newGroups[groupID].state = "investment_result"
-      newGroups[groupID].profit = profit
-      return { participants: newParticipants, groups: newGroups }
-    },
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -8,7 +8,7 @@ import { submitPage, nextPage } from './actions'
 
 import { getPage } from 'util/index'
 
-const pages = ["waiting", "description", "experiment", "result"]
+const pages = ["waiting", "experiment", "result"]
 
 const mapStateToProps = ({ page }) => ({
   page
