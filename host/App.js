@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
+import Users from './Users'
 
 const mapStateToProps = ({loading}) => ({
   loading
@@ -28,6 +29,7 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
+          <Users />
         </div>
       )
     }

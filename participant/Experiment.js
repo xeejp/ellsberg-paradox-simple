@@ -19,7 +19,6 @@ class Experiment extends Component {
   }
 
   change(event, value) {
-    console.log("onChange")
     this.setState({
        selected: value
     })
@@ -28,13 +27,11 @@ class Experiment extends Component {
   next() {
     const { question1, question2, sequence } = this.props
     if(this.state.selected != 0) {
-      console.log("selected")
       const{ dispatch } = this.props
-      console.log("al;dksjfalskjdfa;sdjfa;lkjdf;akj;j " + this.state.selected)
       dispatch(nextQuestion(this.state.selected))
-      this.setState({
-        selected: 0,
-      })
+//      this.setState({
+//        selected: 0,
+//      })
     }
   }
   

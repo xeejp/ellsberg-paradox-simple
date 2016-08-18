@@ -9,13 +9,12 @@ defmodule AllaisParadox.Participant do
   end
 
   def next_question(data, id, selected) do
-    Logger.debug('asdfasfasdfadfsad#{selected["next"]} #{selected["selected"]}')
     data = data |> put_in([:participants, id, :sequence], selected["next"])
-    data = case selected do
-             {"question2", select} -> data |> put_in([:participants, id, :question1], select)
-             {"answered" , select} -> data |> put_in([:participants, id, :question2], select)
-                                 _ -> data
-            end
+    if selected["next"] == "question2" do
+      data = data |> put_in([:participants, id, :question1], selected["selected"])
+    else
+      data = data |> put_in([:participants, id, :question2], selected["selected"])
+    end
     Actions.next_question(data, id, selected)
   end
 

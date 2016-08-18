@@ -21,7 +21,6 @@ function* nextQuestionSaga() {
         break
       }
     }
-    console.log(next + " " + selected)
     yield call(sendData, 'next question', {selected: selected, next: next})
   }
 }

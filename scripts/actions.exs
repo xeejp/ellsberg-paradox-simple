@@ -23,8 +23,9 @@ defmodule AllaisParadox.Actions do
   end
 
   def next_question(data, id, selected) do
-    action = get_action("next question", selected)
-    format(data, nil, dispatch_to(id, action))
+    paction = get_action("next question", selected)
+    haction = get_action("answer", %{id: id, participant: data.participants[id]})
+    format(data, haction, dispatch_to(id, paction))
   end
 
   # Utilities

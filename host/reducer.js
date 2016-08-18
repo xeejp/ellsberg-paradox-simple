@@ -8,8 +8,9 @@ const reducer = concatenateReducers([
     'update contents': (_, { payload }) => payload,
     [changePage]: (_, { payload }) => ({ page: payload }),
     'join': ({ participants }, { payload: { id, participant } }) => ({
-      participants: Object.assign({}, participants, {[id]: participant})
-    }),
+      participants: Object.assign({}, participants, {[id]: participant})}),
+    'answer': ({ participants }, { payload: { id, participant } }) => ({
+      participants: Object.assign({}, participants, {[id]: participant})}),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])
