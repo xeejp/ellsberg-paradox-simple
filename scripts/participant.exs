@@ -1,9 +1,22 @@
 defmodule AllaisParadox.Participant do
   alias AllaisParadox.Actions
 
+  require Logger
+
   # Actions
   def fetch_contents(data, id) do
     Actions.update_participant_contents(data, id)
+  end
+
+  def next_question(data, id, selected) do
+    Logger.debug('asdfasfasdfadfsad#{selected["next"]} #{selected["selected"]}')
+    data = data |> put_in([:participants, id, :sequence], selected["next"])
+    data = case selected do
+             {"question2", select} -> data |> put_in([:participants, id, :question1], select)
+             {"answered" , select} -> data |> put_in([:participants, id, :question2], select)
+                                 _ -> data
+            end
+    Actions.next_question(data, id, selected)
   end
 
   # Utilities
@@ -16,14 +29,9 @@ defmodule AllaisParadox.Participant do
   end
 
   def format_contents(data, id) do
-    %{participants: participants, groups: groups} = data
+    %{participants: participants} = data
     participant = Map.get(participants, id)
-    if not is_nil(participant.group) do
-      format_participant(participant)
-      |> Map.merge(format_group(Map.get(groups, participant.group)))
+    format_participant(participant)
       |> Map.merge(format_data(data))
-    else
-      format_participant(participant)
-    end
   end
 end

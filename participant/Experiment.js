@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
+import { nextQuestion } from './actions'
+
 import { getText } from './Text'
 
 const mapStateToProps = ({ sequence, question1, question2 }) => ({
@@ -13,29 +15,46 @@ const mapStateToProps = ({ sequence, question1, question2 }) => ({
 class Experiment extends Component {
   constructor(props) {
     super(props)
+    this.state = { selected: 0 }
+  }
+
+  change(event, value) {
+    console.log("onChange")
+    this.setState({
+       selected: value
+    })
   }
 
   next() {
-    const { sequence, question1, question2 } = this.props
-    if(sequence == "question1") sequence = "question2"
-    else if(sequence == "question2") sequence = "answered"
+    const { question1, question2, sequence } = this.props
+    if(this.state.selected != 0) {
+      console.log("selected")
+      const{ dispatch } = this.props
+      console.log("al;dksjfalskjdfa;sdjfa;lkjdf;akj;j " + this.state.selected)
+      dispatch(nextQuestion(this.state.selected))
+      this.setState({
+        selected: 0,
+      })
+    }
   }
   
   render() {
     const { sequence } = this.props
     const Text = getText(sequence)
-    return <div>
-      <div>Text.text</div>
-      <RadioButtonGroup
+    return (sequence != "answered")? <div>
+      <p>{Text.text}</p>
+        <RadioButtonGroup
         name="question"
+        onChange={this.change.bind(this)}
       >
         {Text.question.map((type, key) => <RadioButton
           key={key+1}
-          value={type}
+          value={key+1}
           label={type}
         />)}
       </RadioButtonGroup>
-    </div>
+      <RaisedButton label="Next" onClick={this.next.bind(this)} />
+    </div> : <div><p>{Text.text}</p></div>
   }
 }
 

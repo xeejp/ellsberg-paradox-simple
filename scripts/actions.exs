@@ -22,6 +22,11 @@ defmodule AllaisParadox.Actions do
     format(data, nil, participant)
   end
 
+  def next_question(data, id, selected) do
+    action = get_action("next question", selected)
+    format(data, nil, dispatch_to(id, action))
+  end
+
   # Utilities
 
   defp get_action(type, params) do

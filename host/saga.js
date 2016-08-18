@@ -6,15 +6,12 @@ function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
-    if (payload == 'description') {
-      yield put(match())
-    }
     yield put(changePage(payload))
   }
 }
 
 function* nextPageSaga() {
-  const pages = ["description", "experiment", "result", "waiting"]
+  const pages = ["experiment", "result", "waiting"]
   while (true) {
     yield take(`${nextPage}`)
     const page = yield select(({ page }) => page)
@@ -36,18 +33,10 @@ function* fetchContentsSaga() {
   }
 }
 
-function* matchSaga() {
-  while (true) {
-    yield take(`${match}`)
-    yield call(sendData, 'match')
-  }
-}
-
 function* saga() {
   yield fork(changePageSaga)
   yield fork(nextPageSaga)
   yield fork(fetchContentsSaga)
-  yield fork(matchSaga)
 }
 
 export default saga

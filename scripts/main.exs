@@ -16,7 +16,7 @@ defmodule AllaisParadox.Main do
 
   def new_participant do
     %{
-      sequence : "question1",
+      sequence: "question1",
       question1: 0,
       question2: 0,
     }
