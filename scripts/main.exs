@@ -19,6 +19,7 @@ defmodule AllaisParadox.Main do
       sequence: "question1",
       question1: 0,
       question2: 0,
+      active: false,
     }
   end
 

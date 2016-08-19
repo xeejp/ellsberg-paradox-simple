@@ -1,11 +1,12 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, match, nextPage, submitPage, changePage } from './actions'
+import { fetchContents, match, nextPage, submitPage, changePage, allReset } from './actions'
 
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
+    if(payload == "experiment") yield call(sendData, 'all reset')
     yield put(changePage(payload))
   }
 }
@@ -33,10 +34,18 @@ function* fetchContentsSaga() {
   }
 }
 
+function* allResetSaga() {
+  while(true) {
+    yield take(`${allReset}`)
+    yield call(sendData, 'all reset')
+  }
+}
+
 function* saga() {
   yield fork(changePageSaga)
   yield fork(nextPageSaga)
   yield fork(fetchContentsSaga)
+  yield fork(allReset)
 }
 
 export default saga

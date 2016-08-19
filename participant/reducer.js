@@ -7,7 +7,8 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     'change page': (_, { payload }) => ({ page: payload }),
-    'next question': (_, { payload }) => ( (payload.next == "question2")? { sequence: payload.next, question1: payload.selected } : {sequence: payload.next, question2: payload.selected})
+    'next question': (_, { payload }) => ( (payload.next == "question2")? { sequence: payload.next, question1: payload.selected } : {sequence: payload.next, question2: payload.selected}),
+    'reset': (_, { payload }) => ( { sequence: payload.sequence, question1: payload.question1, question2: payload.question2, active: payload.active })
   }),
   handleAction('update contents', () => ({ loading: false }), { loading: true }),
 ])

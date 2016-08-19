@@ -29,19 +29,19 @@ class Experiment extends Component {
     if(this.state.selected != 0) {
       const{ dispatch } = this.props
       dispatch(nextQuestion(this.state.selected))
-//      this.setState({
-//        selected: 0,
-//      })
+      this.setState({
+        selected: 0,
+      })
     }
   }
   
   render() {
     const { sequence } = this.props
     const Text = getText(sequence)
-    return (sequence != "answered")? <div>
+    return (sequence != "answered")? (sequence == "question1")? <div>
       <p>{Text.text}</p>
         <RadioButtonGroup
-        name="question"
+        name="question1"
         onChange={this.change.bind(this)}
       >
         {Text.question.map((type, key) => <RadioButton
@@ -51,7 +51,21 @@ class Experiment extends Component {
         />)}
       </RadioButtonGroup>
       <RaisedButton label="Next" onClick={this.next.bind(this)} />
-    </div> : <div><p>{Text.text}</p></div>
+    </div>
+    : <div> <p>{Text.text}</p>
+        <RadioButtonGroup
+        name="question2"
+        onChange={this.change.bind(this)}
+      >
+        {Text.question.map((type, key) => <RadioButton
+          key={key+1}
+          value={key+1}
+          label={type}
+        />)}
+      </RadioButtonGroup>
+      <RaisedButton label="Next" onClick={this.next.bind(this)} />
+    </div>
+    : <div><p>{Text.text}</p></div>
   }
 }
 

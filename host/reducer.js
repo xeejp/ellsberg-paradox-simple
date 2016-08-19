@@ -11,6 +11,7 @@ const reducer = concatenateReducers([
       participants: Object.assign({}, participants, {[id]: participant})}),
     'answer': ({ participants }, { payload: { id, participant } }) => ({
       participants: Object.assign({}, participants, {[id]: participant})}),
+    'reset': ({ participants }, { payload }) => ({ participants: payload }),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

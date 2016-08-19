@@ -1,6 +1,8 @@
 defmodule AllaisParadox.Actions do
   alias AllaisParadox.Participant
   alias AllaisParadox.Host
+ 
+  require Logger
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -15,6 +17,17 @@ defmodule AllaisParadox.Actions do
   def update_host_contents(data) do
     host = get_action("update contents", Host.format_contents(data))
     format(data, host)
+  end
+
+  def all_reset(data) do
+    haction = get_action("reset", data.participants)
+    paction = get_action("reset", %{
+          sequence: "question1",
+          question1: 0,
+          question2: 0,
+          active: true,
+        })
+    format(data, haction, dispatch_to_all(data, paction))
   end
 
   def update_participant_contents(data, id) do

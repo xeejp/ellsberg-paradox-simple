@@ -9,7 +9,7 @@ const User = ({ id, status }) => (
 
 const mapStateToProps = ({ participants, page }) => ({ participants, page })
 
-const UsersList = ({participants, page}) => (
+const UsersList = ({participants, page }) => (
   <table>
     <thead><tr><th>id</th><th>status</th></tr></thead>
     <tbody>
@@ -18,7 +18,7 @@ const UsersList = ({participants, page}) => (
           <User
             key={id}
             id={id}
-            status={(page == "waiting")? "待機中" : {"question1": "1問目に回答中", "question2": "2問目に回答中", "answered": "解答済み"}[participants[id].sequence]}
+            status={(page == "waiting" || !participants[id].active)? "待機中" : {"question1": "1問目に回答中", "question2": "2問目に回答中", "answered": "解答済み"}[participants[id].sequence]}
           />
         ))
       }
