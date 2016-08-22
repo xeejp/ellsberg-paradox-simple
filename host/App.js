@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
+//import Chart from './Chart'
 import Users from './Users'
 
-const mapStateToProps = ({loading}) => ({
-  loading
+const mapStateToProps = ({loading, page}) => ({
+  loading, page
 })
 
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   render() {
-    const { loading } = this.props
+    const { loading, page } = this.props
     if (loading) {
       return <p>ロード中です。</p>
     } else {

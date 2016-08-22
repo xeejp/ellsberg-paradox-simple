@@ -1,8 +1,6 @@
 defmodule AllaisParadox.Participant do
   alias AllaisParadox.Actions
 
-  require Logger
-
   # Actions
   def fetch_contents(data, id) do
     if data.page == "waiting", do: data = data |> put_in([:participants, id, :active], true)
@@ -15,6 +13,7 @@ defmodule AllaisParadox.Participant do
       data = data |> put_in([:participants, id, :question1], selected["selected"])
     else
       data = data |> put_in([:participants, id, :question2], selected["selected"])
+                  |> Map.put(:answered, data.answered + 1)
     end
     Actions.next_question(data, id, selected)
   end

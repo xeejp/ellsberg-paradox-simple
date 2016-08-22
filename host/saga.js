@@ -5,9 +5,18 @@ import { fetchContents, match, nextPage, submitPage, changePage, allReset } from
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
-    sendData('change page', payload)
-    if(payload == "experiment") yield call(sendData, 'all reset')
-    yield put(changePage(payload))
+    sendData('change page', payload.type)
+    console.log("IIIIIII " + payload.type + " " + Object.keys(payload.participants).length())
+    if(payload.type == "experiment") yield call(sendData, 'all reset')
+    if(payload.type ==     "result") {
+      var rationally = 0
+      for(var i of payload.participants) {
+        if(Math.abs(payload.participants[i].question1 - payload.participants[i].question2) == 0)
+          rationally++
+      }
+      yield call(sendData, 'send result', {rational: rational, irrational: (Object.keys(payload.participants).length() - rational)})
+    }
+    yield put(changePage(payload.type))
   }
 }
 
@@ -23,7 +32,7 @@ function* nextPageSaga() {
         break
       }
     }
-    yield put(submitPage(next))
+    yield put(submitPage({type: next}))
   }
 }
 

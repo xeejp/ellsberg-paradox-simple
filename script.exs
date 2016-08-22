@@ -31,12 +31,12 @@ defmodule AllaisParadox do
 
   # Host router
   def handle_received(data, %{"action" => action, "params" => params}) do
-    Logger.debug("#{action} uketottazoooooooooooooooooooooooooooooooooooooooooo")
     Logger.debug("[Allais Paradox] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
       {"all reset", _}      -> Host.all_reset(data)
+      {"send result", result} -> Host.send_result(data, result)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)

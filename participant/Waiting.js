@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import {Card, CardText, CardTitle } from 'material-ui/Card'
 import CircularProgress from 'material-ui/CircularProgress'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({ joined }) => ({
+  joined
 })
 
-const Waiting = ({}) => (
+const Waiting = ({ joined }) => (
 	<Card>
 		<CardTitle title="アレのパラドクス" subtitle="待機画面" />
 		<CardText>
 			<p>参加者の登録を待っています。</p>
+                        <p>現在{joined}人が参加してます。</p>
 			<p>この画面のまましばらくお待ち下さい。</p>
 		</CardText>
 		<div style={{textAlign: "center"}}>
@@ -20,4 +22,4 @@ const Waiting = ({}) => (
 	</Card>
 )
 
-export default connect()(Waiting)
+export default connect(mapStateToProps)(Waiting)

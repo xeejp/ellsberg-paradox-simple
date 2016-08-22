@@ -1,8 +1,6 @@
 defmodule AllaisParadox.Actions do
   alias AllaisParadox.Participant
   alias AllaisParadox.Host
- 
-  require Logger
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -10,8 +8,12 @@ defmodule AllaisParadox.Actions do
   end
 
   def join(data, id, participant) do
-    action = get_action("join", %{id: id, participant: participant})
-    format(data, action)
+    if data.page == "waiting" do
+      data = data |> Map.put(:joined, data.joined + 1)
+    end
+    haction = get_action("join", %{id: id, participant: participant, joined: data.joined})
+    paction = get_action("joined", Map.size(data.participants))
+    format(data, haction, dispatch_to_all(data, paction))
   end
   
   def update_host_contents(data) do
@@ -20,13 +22,20 @@ defmodule AllaisParadox.Actions do
   end
 
   def all_reset(data) do
-    haction = get_action("reset", data.participants)
+    haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered, rational: 0, irational: 0, })
     paction = get_action("reset", %{
           sequence: "question1",
           question1: 0,
           question2: 0,
           active: true,
+          joined: Map.size(data.participants)
         })
+    format(data, haction, dispatch_to_all(data, paction))
+  end
+
+  def all_result(data, result) do
+    haction = get_action("result", result)
+    paction = get_action("result", result)
     format(data, haction, dispatch_to_all(data, paction))
   end
 
@@ -37,7 +46,7 @@ defmodule AllaisParadox.Actions do
 
   def next_question(data, id, selected) do
     paction = get_action("next question", selected)
-    haction = get_action("answer", %{id: id, participant: data.participants[id]})
+    haction = get_action("answer", %{id: id, participant: data.participants[id], answered: data.answered})
     format(data, haction, dispatch_to(id, paction))
   end
 

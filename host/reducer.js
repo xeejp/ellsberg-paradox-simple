@@ -7,11 +7,14 @@ const reducer = concatenateReducers([
   handleActions({
     'update contents': (_, { payload }) => payload,
     [changePage]: (_, { payload }) => ({ page: payload }),
-    'join': ({ participants }, { payload: { id, participant } }) => ({
-      participants: Object.assign({}, participants, {[id]: participant})}),
-    'answer': ({ participants }, { payload: { id, participant } }) => ({
-      participants: Object.assign({}, participants, {[id]: participant})}),
-    'reset': ({ participants }, { payload }) => ({ participants: payload }),
+    'join': ({ participants }, { payload: { id, participant, joined } }) => ({
+      participants: Object.assign({}, participants, {[id]: participant}), joined: joined}),
+    'answer': ({ participants }, { payload: { id, participant, answered } }) => ({
+      participants: Object.assign({}, participants, {[id]: participant}), answered: answered}),
+    'reset': (_, { payload: {participants, joined, answered} }) => ({
+      participants: participants, joined: joined, answered: answered }),
+    'result': (_, { payload: {rational, irational} }) => ({
+      rational: rational, irational, irational }),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

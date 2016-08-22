@@ -10,14 +10,14 @@ import { getPage } from 'util/index'
 
 const pages = ["waiting", "experiment", "result"]
 
-const mapStateToProps = ({ page }) => ({
-  page
+const mapStateToProps = ({ page, joined, answered, participants }) => ({
+  page, joined, answered, participants
 })
 
 class PageButtons extends Component {
   changePage(page) {
     const { dispatch } = this.props
-    dispatch(submitPage(page))
+    dispatch(submitPage({type: page}))
   }
 
   nextPage(page) {
@@ -26,7 +26,7 @@ class PageButtons extends Component {
   }
 
   render() {
-    const { page } = this.props
+    const { page, joined, answered, participants } = this.props
     const buttons = []
     for (let i = 0; i < pages.length; i ++) {
       buttons[i] = (
@@ -36,6 +36,10 @@ class PageButtons extends Component {
           >{getPage(pages[i])}</StepButton>
         </Step>
       )
+    }
+    if(page == "experiment" && joined == answered) {
+      const { dispatch } = this.props
+      dispatch(submitPage({ type: "result", participants: participants }))
     }
     return (
       <span>
