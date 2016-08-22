@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
-//import Chart from './Chart'
 import Users from './Users'
+
+import Chart from 'components/Chart'
 
 const mapStateToProps = ({loading, page}) => ({
   loading, page
@@ -30,6 +31,7 @@ class App extends Component {
       return (
         <div>
           <PageButtons />
+          {(page == "result")? <Chart /> : null}
           <Users />
         </div>
       )

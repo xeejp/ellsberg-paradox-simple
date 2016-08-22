@@ -33,7 +33,7 @@ defmodule AllaisParadox.Actions do
     format(data, haction, dispatch_to_all(data, paction))
   end
 
-  def all_result(data, result) do
+  def send_result(data, result) do
     haction = get_action("result", result)
     paction = get_action("result", result)
     format(data, haction, dispatch_to_all(data, paction))

@@ -39,7 +39,7 @@ class PageButtons extends Component {
     }
     if(page == "experiment" && joined == answered) {
       const { dispatch } = this.props
-      dispatch(submitPage({ type: "result", participants: participants }))
+      dispatch(submitPage("result"))
     }
     return (
       <span>

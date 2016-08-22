@@ -1,32 +1,29 @@
-import React from 'react'
+ï»¿import React from 'react'
 import { connect } from 'react-redux'
 
-import Highcharts from 'react-highchars'
+import Highcharts from 'react-highcharts'
 
-const mapStateToProps = ({ participants }) => ({ participants })
+const mapStateToProps = ({ rational, irational }) => ({ rational, irational })
 
-const Chart = ({ participants }) => {
-  const users = Object.keys(participants).length()
-  var rationally = 0
-  for(var i of participants) {
-    if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
-      rationally++
-  }
+const Chart = ({ rational, irational }) => {
   return (
     <Highcharts
       config={{
         chart: {
             type: 'column'
         },
+        credits : {
+          enabled: false,
+        },
         title: {
-            text: 'ÀŒ±Œ‹‰Ê'
+            text: 'å®Ÿé¨“çµæœ'
         },
         xAxis: {
             type: 'category'
         },
         yAxis: {
             title: {
-                text: 'l”'
+                text: 'äººæ•°'
             },
             allowDecimals: false
         },
@@ -38,25 +35,25 @@ const Chart = ({ participants }) => {
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true,
-                    format: '{point.y:.0f}l'
+                    format: '{point.y:.0f}äºº'
                 }
             }
         },
 
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}l</b><br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}äºº</b><br/>'
         },
 
         series: [{
-            name: 'ÀŒ±Œ‹‰Ê',
+            name: 'è§£ç­”',
             colorByPoint: true,
             data: [{
-                name: '‡—“I‚È‘I‘ğ‚ğ‚µ‚½l',
-                y: 1,
+                name: 'åˆç†çš„ãªå›ç­”ã‚’ã—ãŸäºº',
+                y: rational,
             }, {
-                name: '‡—“I‚È‘I‘ğ‚ğ‚µ‚È‚©‚Á‚½l',
-                y: 1,
+                name: 'éåˆç†çš„ãªå›ç­”ã‚’ã—ãŸäºº',
+                y: irational,
             }]
         }]
     }}

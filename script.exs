@@ -31,7 +31,7 @@ defmodule AllaisParadox do
 
   # Host router
   def handle_received(data, %{"action" => action, "params" => params}) do
-    Logger.debug("[Allais Paradox] #{action} #{params}")
+#    Logger.debug("[Allais Paradox] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Host.fetch_contents(data)
       {"change page", page} -> Host.change_page(data, page)
@@ -47,7 +47,7 @@ defmodule AllaisParadox do
 #    Logger.debug("[Allais Paradox] #{action} #{params}")
     result = case {action, params} do
       {"fetch contents", _} -> Participant.fetch_contents(data, id)
-      {"next question" , selected} -> Participant.next_question(data, id, selected)
+      {"next question", selected} -> Participant.next_question(data, id, selected)
       _ -> {:ok, %{"data" => data}}
     end
     wrap_result(result)
