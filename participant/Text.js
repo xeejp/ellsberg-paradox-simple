@@ -1,4 +1,6 @@
-﻿export function getText(sequence) {
+﻿export function getText(sequence, qswap) {
+  if(qswap && sequence == 'question1') sequence = 'question2'
+  else if(qswap && sequence == 'question2') sequence = 'question1'
   switch(sequence) {
     case 'question1':
       return {

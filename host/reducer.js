@@ -14,7 +14,7 @@ const reducer = concatenateReducers([
     'reset': (_, { payload: {participants, joined, answered} }) => ({
       participants: participants, joined: joined, answered: answered }),
     'result': (_, { payload: {rational, irational} }) => ({
-      rational: rational, irational, irational }),
+      rational: rational, irational, irational, answered: 0 }),
   }, {}),
   handleAction('update contents', () => ({ loading: false }), { loading: true })
 ])

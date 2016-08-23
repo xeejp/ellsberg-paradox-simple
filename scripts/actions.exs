@@ -30,7 +30,8 @@ defmodule AllaisParadox.Actions do
           active: true,
           joined: Map.size(data.participants)
         })
-    format(data, haction, dispatch_to_all(data, paction))
+    allaction = Enum.reduce(data.participants, %{}, fn {id, value}, acc -> dispatch_to(acc, id, Map.put(paction, :payload, Map.put(paction.payload, :qswap, value.qswap))) end)
+    format(data, haction, allaction)
   end
 
   def send_result(data, result) do

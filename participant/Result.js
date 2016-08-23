@@ -10,8 +10,7 @@ const mapStateToProps = ({ rational, irational }) => ({
 
 const Result = ({ rational, irational}) => (
   <div>
-    <p>実験結果</p>
-    <Chart />
+    <Chart rational={rational} irational={irational} />
   </div>
 )
 

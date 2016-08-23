@@ -18,6 +18,8 @@ defmodule AllaisParadox.Host do
   end
 
   def all_reset(data) do
+    :random.seed(:os.timestamp)
+    flag = true
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
       {id,
         %{
@@ -26,6 +28,7 @@ defmodule AllaisParadox.Host do
           question2: 0,
           active: true,
           joined: Map.size(data.participants),
+          qswap: true,
           rational: 0,
           irational: 0,
         }
@@ -35,6 +38,12 @@ defmodule AllaisParadox.Host do
                 |> Map.put(:answered, 0)
                 |> Map.put(:rational, 0)
                 |> Map.put(:irational, 0)
+    data = data |> Map.put(:participants, data.participants
+                |> Map.merge(data.participants
+                |> Enum.shuffle
+                |> Enum.take_every(2)
+                |> Enum.map(fn {id, value} -> {id, Map.put(value, :qswap, false)} end)
+                |> Enum.into(%{})))
     Actions.all_reset(data)
   end
 
@@ -42,6 +51,7 @@ defmodule AllaisParadox.Host do
     data = data  |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
       {id, value |> Map.put(:rational, result["rational"]) |> Map.put(:irational, result["irational"])} end), %{}))
                  |> Map.put(:rational, result["rational"]) |> Map.put(:irational, result["irational"])
+                 |> Map.put(:answered, 0)
     Actions.send_result(data, result)
   end
 

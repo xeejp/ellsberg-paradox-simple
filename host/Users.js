@@ -18,7 +18,7 @@ const UsersList = ({participants, page }) => (
           <User
             key={id}
             id={id}
-            status={(page == "waiting" || !participants[id].active)? "待機中" : {"question1": "1問目に回答中", "question2": "2問目に回答中", "answered": "解答済み"}[participants[id].sequence]}
+            status={(page == "waiting" || !participants[id].active)? "待機中" : {"question1": "1問目に回答中", "question2": "2問目に回答中", "answered": "回答済み"}[participants[id].sequence]}
           />
         ))
       }

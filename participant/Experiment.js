@@ -8,8 +8,8 @@ import { nextQuestion } from './actions'
 
 import { getText } from './Text'
 
-const mapStateToProps = ({ sequence, question1, question2 }) => ({
-  sequence, question1, question2
+const mapStateToProps = ({ sequence, question1, question2, qswap }) => ({
+  sequence, question1, question2, qswap
 })
 
 class Experiment extends Component {
@@ -36,8 +36,8 @@ class Experiment extends Component {
   }
   
   render() {
-    const { sequence } = this.props
-    const Text = getText(sequence)
+    const { sequence, qswap } = this.props
+    const Text = getText(sequence, qswap)
     return (sequence != "answered")? (sequence == "question1")? <div>
       <p>{Text.text}</p>
         <RadioButtonGroup
@@ -50,7 +50,7 @@ class Experiment extends Component {
           label={type}
         />)}
       </RadioButtonGroup>
-      <RaisedButton label="Next" onClick={this.next.bind(this)} />
+      <RaisedButton label="次へ" onClick={this.next.bind(this)} />
     </div>
     : <div> <p>{Text.text}</p>
         <RadioButtonGroup
@@ -63,7 +63,7 @@ class Experiment extends Component {
           label={type}
         />)}
       </RadioButtonGroup>
-      <RaisedButton label="Next" onClick={this.next.bind(this)} />
+      <RaisedButton label="次へ" onClick={this.next.bind(this)} />
     </div>
     : <div><p>{Text.text}</p></div>
   }

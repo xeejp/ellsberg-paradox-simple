@@ -25,6 +25,7 @@ defmodule AllaisParadox.Main do
       question2: 0,
       active: false,
       joined: 1,
+      qswap: false,
       rational: 0,
       irational: 0,
     }

@@ -17,7 +17,7 @@ const mapStateToProps = ({ page, joined, answered, participants }) => ({
 class PageButtons extends Component {
   changePage(page) {
     const { dispatch } = this.props
-    dispatch(submitPage({type: page}))
+    dispatch(submitPage(page))
   }
 
   nextPage(page) {

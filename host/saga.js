@@ -1,20 +1,24 @@
 import { put, take, call, select, fork } from 'redux-saga/effects'
 
-import { fetchContents, match, nextPage, submitPage, changePage, allReset } from './actions'
+import { fetchContents, match, nextPage, submitPage, changePage } from './actions'
 
 function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
-    if(payload == "waiting" || payload == "experiment") yield call(sendData, 'all reset')
+    if(payload == "experiment") yield call(sendData, 'all reset')
     if(payload ==     "result") {
       const { participants: participants } = yield select( participants => participants)
       var rational = 0
+      var user = Object.keys(participants).length
       for(var i in participants) {
-        if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
+        if(participants[i].question2 == 0){
+          user--
+        }
+        else if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
           rational++
       }
-      yield call(sendData, 'send result', {rational: rational, irational: (Object.keys(participants).length - rational)})
+      yield call(sendData, 'send result', {rational: rational, irational: (user - rational)})
     }
     yield put(changePage(payload))
   }
@@ -43,18 +47,10 @@ function* fetchContentsSaga() {
   }
 }
 
-function* allResetSaga() {
-  while(true) {
-    yield take(`${allReset}`)
-    yield call(sendData, 'all reset')
-  }
-}
-
 function* saga() {
   yield fork(changePageSaga)
   yield fork(nextPageSaga)
   yield fork(fetchContentsSaga)
-  yield fork(allReset)
 }
 
 export default saga

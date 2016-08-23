@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
+import Information from './Information'
 import Users from './Users'
 
 import Chart from 'components/Chart'
 
-const mapStateToProps = ({loading, page}) => ({
-  loading, page
+const mapStateToProps = ({loading, page, participants}) => ({
+  loading, page, participants
 })
 
 class App extends Component {
@@ -24,14 +25,28 @@ class App extends Component {
   }
 
   render() {
-    const { loading, page } = this.props
+    const { loading, page, participants } = this.props
+    var rational = 0
+    let user = 0
+    if(participants != undefined){
+      user = Object.keys(participants).length
+      console.log(user)
+      for(var i in participants) {
+        if(participants[i].question2 == 0){
+          user--
+        }
+        else if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
+          rational++
+      }
+    }
     if (loading) {
       return <p>ロード中です。</p>
     } else {
       return (
         <div>
           <PageButtons />
-          {(page == "result")? <Chart /> : null}
+          <Information />
+          <div><Chart rational={rational} irational={user - rational} /><p></p></div>
           <Users />
         </div>
       )
