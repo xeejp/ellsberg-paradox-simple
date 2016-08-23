@@ -26,17 +26,12 @@ class App extends Component {
 
   render() {
     const { loading, page, participants } = this.props
-    var rational = 0
-    let user = 0
+    var ans = [[0, 0], [0, 0]]
     if(participants != undefined){
-      user = Object.keys(participants).length
-      console.log(user)
       for(var i in participants) {
-        if(participants[i].question2 == 0){
-          user--
+        if(participants[i].question2 != 0){
+          ans[participants[i].question1 - 1][participants[i].question2 - 1]++
         }
-        else if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
-          rational++
       }
     }
     if (loading) {
@@ -46,7 +41,7 @@ class App extends Component {
         <div>
           <PageButtons />
           <Information />
-          <div><Chart rational={rational} irational={user - rational} /><p></p></div>
+          <div><Chart oneone={ans[0][0]} onetwo={ans[0][1]} twoone={ans[1][0]} twotwo={ans[1][1]} /><p></p></div>
           <Users />
         </div>
       )

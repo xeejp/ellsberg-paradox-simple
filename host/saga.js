@@ -6,19 +6,18 @@ function* changePageSaga() {
   while (true) {
     const { payload } = yield take(`${submitPage}`)
     sendData('change page', payload)
-    if(payload == "experiment") yield call(sendData, 'all reset')
+    if(payload == "waiting" || payload == "experiment") yield call(sendData, 'all reset')
     if(payload ==     "result") {
       const { participants: participants } = yield select( participants => participants)
-      var rational = 0
-      var user = Object.keys(participants).length
-      for(var i in participants) {
-        if(participants[i].question2 == 0){
-          user--
+      var ans = [[0, 0], [0, 0]]
+      if(participants != undefined){
+        for(var i in participants) {
+          if(participants[i].question2 != 0){
+            ans[participants[i].question1 - 1][participants[i].question2 - 1]++
+          }
         }
-        else if(Math.abs(participants[i].question1 - participants[i].question2) == 0)
-          rational++
       }
-      yield call(sendData, 'send result', {rational: rational, irational: (user - rational)})
+      yield call(sendData, 'send result', {oneone: ans[0][0], onetwo: ans[0][1], twoone: ans[1][0], twotwo: ans[1][1]})
     }
     yield put(changePage(payload))
   }
