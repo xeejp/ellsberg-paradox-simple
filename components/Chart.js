@@ -6,84 +6,57 @@ import Highcharts from 'react-highcharts'
 
 const mapStateToProps = ({}) => ({})
 
-const Chart = ({ oneone, onetwo, twoone, twotwo }) => {
+const Chart = ({ rational, irational }) => {
   return (
     <Card>
-      <span>
-        <Highcharts
-          config={{
-              chart: {
-                type: 'pie'
-            },
-            credits : {
-              enabled: false,
-            },
+    <Highcharts
+      config={{
+        chart: {
+            type: 'column'
+        },
+        credits : {
+          enabled: false,
+        },
+        title: {
+            text: '実験結果'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
             title: {
-                text: 'はじめの質問で1を選んだ人'
+                text: '人数'
             },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.y:.0f}人'
-                    }
+            allowDecimals: false
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.0f}人'
                 }
-            },  
-  
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
-            },
-            series: [{
-                name: '回答',
-                colorByPoint: true,
-                data: [{
-                    name: '次の質問で1を選んだ',
-                    y: oneone,
-                }, {
-                    name: '次の質問で2を選んだ',
-                    y: onetwo,
-                }]
+            }
+         },
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
+        },
+         series: [{
+            name: '回答',
+            colorByPoint: true,
+            data: [{
+                name: '合理的な回答をした人',
+                y: rational,
+            }, {
+                name: '非合理的な回答をした人',
+                y: irational,
             }]
-        }} />
-        <Highcharts
-          config={{
-              chart: {
-                type: 'pie'
-            },
-            credits : {
-              enabled: false,
-            },
-            title: {
-                text: 'はじめの質問で2を選んだ人'
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.y:.0f}人'
-                    }
-                }
-            },  
-  
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
-            },
-            series: [{
-                name: '回答',
-                colorByPoint: true,
-                data: [{
-                    name: '次の質問で1を選んだ',
-                    y: twoone,
-                }, {
-                    name: '次の質問で2を選んだ',
-                    y: twotwo,
-                }]
-            }]
-        }} />
-      </span>
-    </Card>
+        }]
+    }} /> </Card>
   )
 }
 

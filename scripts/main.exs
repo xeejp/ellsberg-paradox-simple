@@ -2,7 +2,7 @@ defmodule AllaisParadox.Main do
   alias AllaisParadox.Actions
 
   @pages ["waiting", "experiment", "result"]
-  @sequence ["question1", "answered"]
+  @sequence ["question1", "question2", "answered"]
 
   def pages, do: @pages
   def sequence, do: @sequence
@@ -13,10 +13,8 @@ defmodule AllaisParadox.Main do
       participants: %{},
       joined: 0,
       answered: 0,
-      oneone: 0,
-      onetwo: 0,
-      twoone: 0,
-      twotwo: 0,
+      rational: 0,
+      irational: 0,
     }
   end
 
@@ -28,10 +26,8 @@ defmodule AllaisParadox.Main do
       active: false,
       joined: 1,
       qswap: false,
-      oneone: 0,
-      onetwo: 0,
-      twoone: 0,
-      twotwo: 0,
+      rational: 0,
+      irational: 0,
     }
   end
 

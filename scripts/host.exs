@@ -29,19 +29,15 @@ defmodule AllaisParadox.Host do
           active: true,
           joined: Map.size(data.participants),
           qswap: true,
-          oneone: 0,
-          onetwo: 0,
-          twoone: 0,
-          twotwo: 0,
+          rational: 0,
+          irational: 0,
         }
       }
     end), %{}))
                 |> Map.put(:joined, Map.size(data.participants))
                 |> Map.put(:answered, 0)
-                |> Map.put(:oneone, 0)
-                |> Map.put(:onetwo, 0)
-                |> Map.put(:twoone, 0)
-                |> Map.put(:twotwo, 0)
+                |> Map.put(:rational, 0)
+                |> Map.put(:irational, 0)
     data = data |> Map.put(:participants, data.participants
                 |> Map.merge(data.participants
                 |> Enum.shuffle
@@ -53,8 +49,8 @@ defmodule AllaisParadox.Host do
 
   def send_result(data, result) do
     data = data  |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
-      {id, value |> Map.put(:oneone, result["oneone"]) |> Map.put(:onetwo, result["onetwo"]) |> Map.put(:twoone, result["twoone"]) |> Map.put(:twotwo, result["twotwo"])} end), %{}))
-                 |> Map.put(:oneone, result["oneone"]) |> Map.put(:onetwo, result["onetwo"]) |> Map.put(:twoone, result["twoone"]) |> Map.put(:twotwo, result["twotwo"])
+      {id, value |> Map.put(:rational, result["rational"]) |> Map.put(:irational, result["irational"])} end), %{}))
+                 |> Map.put(:rational, result["rational"]) |> Map.put(:irational, result["irational"])
                  |> Map.put(:answered, 0)
     Actions.send_result(data, result)
   end

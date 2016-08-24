@@ -9,9 +9,12 @@ defmodule AllaisParadox.Participant do
 
   def next_question(data, id, selected) do
     data = data |> put_in([:participants, id, :sequence], selected["next"])
-                |> put_in([:participants, id, :question1], selected["selected1"])
-                |> put_in([:participants, id, :question2], selected["selected2"])
-                |> Map.put(:answered, data.answered + 1)
+    if selected["next"] == "question2" do
+      data = data |> put_in([:participants, id, :question1], selected["selected"])
+    else
+      data = data |> put_in([:participants, id, :question2], selected["selected"])
+                  |> Map.put(:answered, data.answered + 1)
+    end
     Actions.next_question(data, id, selected)
   end
 
