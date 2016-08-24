@@ -1,62 +1,96 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 
-import { Card, CardTitle, CardText } from 'material-ui/Card'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Highcharts from 'react-highcharts'
 
 const mapStateToProps = ({}) => ({})
 
-const Chart = ({ rational, irational }) => {
+const Chart = ({ oneone, onetwo, twoone, twotwo }) => {
   return (
     <Card>
-    <Highcharts
-      config={{
-        chart: {
-            type: 'column'
-        },
-        credits : {
-          enabled: false,
-        },
-        title: {
-            text: '実験結果'
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: '人数'
-            },
-            allowDecimals: false
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.0f}人'
-                }
-            }
-         },
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
-        },
-         series: [{
-            name: '回答',
-            colorByPoint: true,
-            data: [{
-                name: '合理的な回答をした人',
-                y: rational,
-            }, {
-                name: '非合理的な回答をした人',
-                y: irational,
-            }]
-        }]
-    }} /> </Card>
+      <CardHeader
+        title={"実験結果"}
+        actAsExpander={true}
+        showExpandableButton={true}
+      />
+      <CardText expandable={true}>
+        <span>
+          <Highcharts
+            config={{
+                chart: {
+                  type: 'pie'
+              },
+              credits : {
+                enabled: false,
+              },
+              title: {
+                  text: 'はじめの質問でオプションAを選んだ人'
+              },
+              plotOptions: {
+                  series: {
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.name}: {point.y:.0f}人'
+                      }
+                  }
+              },  
+    
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
+              },
+              series: [{
+                  name: '回答',
+                  colorByPoint: true,
+                  data: [{
+                      name: '次の質問でオプションAを選んだ',
+                      y: oneone,
+                  }, {
+                      name: '次の質問でオプションBを選んだ',
+                      y: onetwo,
+                  }]
+              }]
+          }} />
+          <Highcharts
+            config={{
+                chart: {
+                  type: 'pie'
+              },
+              credits : {
+                enabled: false,
+              },
+              title: {
+                  text: 'はじめの質問でオプションBを選んだ人'
+              },
+              plotOptions: {
+                  series: {
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.name}: {point.y:.0f}人'
+                      }
+                  }
+              },  
+    
+              tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
+              },
+              series: [{
+                  name: '回答',
+                  colorByPoint: true,
+                  data: [{
+                      name: '次の質問でオプションBを選んだ',
+                      y: twotwo,
+                  }, {
+                      name: '次の質問でオプションAを選んだ',
+                      y: twoone,
+                  }]
+              }]
+          }} />
+        </span>
+      </CardText>
+    </Card>
   )
 }
 

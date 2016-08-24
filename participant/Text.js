@@ -1,21 +1,26 @@
-﻿export function getText(sequence, qswap) {
+﻿export function getText(sequence, qswap = false) {
   if(qswap && sequence == 'question1') sequence = 'question2'
   else if(qswap && sequence == 'question2') sequence = 'question1'
   switch(sequence) {
+    case 'question':
+      return {
+        text: "あなたは2回くじを引きます。それぞれのくじでは1つのオプションを選ぶことができます。",
+        question: ["", ""]
+      }
     case 'question1':
       return {
-        text: "以下の選択肢がある場合、どちらを選ぶか答えてください。",
+        text: (1 + qswap) + "回目のくじのオプションを選んでください。",
 　　　　question: [
-          "確実に100万円を手にする。", 
-          "賭けをする。89％の確率で100万円を得、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
+          "オプションA: 確実に100万円を手にする。", 
+          "オプションB: 89％の確率で100万円、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
         ]
       }
     case 'question2':
       return {
-        text: "以下の選択肢がある場合、どちらを選ぶか答えてください。",
+        text: (2 - qswap) + "回目のくじのオプションを選んでください。",
         question: [
-          "11%の確率で100万円を得る。",
-          "10%の確率で250万円を得る。"
+          "オプションA: 11%の確率で100万円を得る。",
+          "オプションB: 10%の確率で250万円を得る。"
         ]
       }
     case 'answered':
