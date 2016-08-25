@@ -3,7 +3,7 @@ defmodule AllaisParadox.Participant do
 
   # Actions
   def fetch_contents(data, id) do
-    if data.page == "waiting", do: data = data |> put_in([:participants, id, :active], true)
+#    if data.page == "waiting", do: data = data |> put_in([:participants, id, :active], true)
     Actions.update_participant_contents(data, id)
   end
 

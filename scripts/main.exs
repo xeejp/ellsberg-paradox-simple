@@ -20,24 +20,24 @@ defmodule AllaisParadox.Main do
     }
   end
 
-  def new_participant do
+  def new_participant(data) do
     %{
       sequence: "question1",
       question1: 0,
       question2: 0,
-      active: false,
+      active: true,
       joined: 1,
       qswap: false,
-      oneone: 0,
-      onetwo: 0,
-      twoone: 0,
-      twotwo: 0,
+      oneone: data.oneone,
+      onetwo: data.onetwo,
+      twoone: data.twoone,
+      twotwo: data.twotwo,
     }
   end
 
   def join(data, id) do
     unless Map.has_key?(data.participants, id) do
-      new = new_participant()
+      new = new_participant(data)
       new = new |> Map.put(:joined, Map.size(data.participants) + 1)
       data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn {id, map} ->
         {id, Map.put(map, :joined, Map.size(data.participants) + 1)}

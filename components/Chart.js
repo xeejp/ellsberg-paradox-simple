@@ -31,78 +31,80 @@ class Chart extends Component {
       />
       <CardText expandable={true}>
         <span>
-          <Highcharts
-            config={{
-                chart: {
-                  type: 'pie'
-              },
-              credits : {
-                enabled: false,
-              },
-              title: {
-                  text: 'はじめの質問でオプションAを選んだ人'
-              },
-              plotOptions: {
-                  series: {
-                      dataLabels: {
-                          enabled: true,
-                          format: '{point.name}: {point.y:.0f}人'
-                      }
-                  }
-              },  
+          {(oneone + onetwo != 0)?
+            <Highcharts
+              config={{
+                  chart: {
+                    type: 'pie'
+                  },
+                  credits : {
+                    enabled: false,
+                  },
+                  title: {
+                    text: 'はじめの質問でオプションAを選んだ人'
+                  },
+                  plotOptions: {
+                      pie: {
+                          dataLabels: {
+                              distance: -30,
+                              format: '{point.name}: {point.y:.0f}人',
+                          }
+                     }
+                  },  
     
-              tooltip: {
-                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
-              },
-              series: [{
-                  name: '回答',
-                  colorByPoint: true,
-                  data: [{
+                  tooltip: {
+                    headerFormat: '<span>{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
+                  },
+                  series: [{
+                    name: '回答',
+                    colorByPoint: true,
+                    data: [{
                       name: '次の質問でオプションAを選んだ',
                       y: oneone,
-                  }, {
-                      name: '次の質問でオプションBを選んだ',
-                      y: onetwo,
+                    }, {
+                       name: '次の質問でオプションBを選んだ',
+                       y: onetwo,
+                    }]
                   }]
-              }]
-          }} />
-          <Highcharts
-            config={{
-                chart: {
-                  type: 'pie'
-              },
-              credits : {
-                enabled: false,
-              },
-              title: {
-                  text: 'はじめの質問でオプションBを選んだ人'
-              },
-              plotOptions: {
-                  series: {
-                      dataLabels: {
-                          enabled: true,
-                          format: '{point.name}: {point.y:.0f}人'
-                      }
-                  }
-              },  
+             }} /> : <p>はじめの質問でオプションAを選んだ人はいませんでした。</p>}
+          {(twoone + twotwo != 0)?
+            <Highcharts
+              config={{
+                  chart: {
+                    type: 'pie'
+                  },
+                  credits : {
+                    enabled: false,
+                  },
+                  title: {
+                    text: 'はじめの質問でオプションBを選んだ人'
+                  },
+                  plotOptions: {
+                      pie: {
+                          dataLabels: {
+                              distance: 0,
+                              format: '{point.name}: {point.y:.0f}人'
+                          }
+                     }
+                  },  
     
-              tooltip: {
-                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
-              },
-              series: [{
-                  name: '回答',
-                  colorByPoint: true,
-                  data: [{
-                      name: '次の質問でオプションBを選んだ',
-                      y: twotwo,
-                  }, {
-                      name: '次の質問でオプションAを選んだ',
-                      y: twoone,
+                  tooltip: {
+                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
+                  },
+                  series: [{
+                     name: '回答',
+                   colorByPoint: true,
+                   data: [{
+                       name: '次の質問でオプションBを選んだ',
+                       y: twotwo,
+                      }, {
+                       name: '次の質問でオプションAを選んだ',
+                       y: twoone,
+                   }]
                   }]
-              }]
-          }} />
+             }} /> : <p>はじめの質問でオプションBを選んだ人はいませんでした。</p>}
         </span>
       </CardText>
     </Card>

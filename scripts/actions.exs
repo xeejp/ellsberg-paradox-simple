@@ -8,9 +8,9 @@ defmodule AllaisParadox.Actions do
   end
 
   def join(data, id, participant) do
-    if data.page == "waiting" do
+#    if data.page == "waiting" do
       data = data |> Map.put(:joined, data.joined + 1)
-    end
+#    end
     haction = get_action("join", %{id: id, participant: participant, joined: data.joined})
     paction = get_action("joined", Map.size(data.participants))
     format(data, haction, dispatch_to_all(data, paction))

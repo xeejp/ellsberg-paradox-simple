@@ -39,13 +39,33 @@ class Experiment extends Component {
         <SwipeableViews index={this.state.slideIndex} disabled={true}>
           <div style={{overflow: 'hidden'}}>
             <p>{Text.text}</p>
-            <RaisedButton label={Text.question[0]} onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}} />
-            <RaisedButton label={Text.question[1]} onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}} />
+            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
+              <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+                <h5>{Text.title[0]}</h5>
+                <p>{Text.question[0]}</p>
+              </div>
+            </RaisedButton>
+            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+              <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+                <h5>{Text.title[1]}</h5>
+                <p>{Text.question[1]}</p>
+              </div>
+            </RaisedButton>
           </div>
           <div style={{overflow: 'hidden'}}>
             <p>{Text.text}</p>
-            <RaisedButton label={Text.question[0]} onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}} />
-            <RaisedButton label={Text.question[1]} onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}} />
+            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
+              <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+                <h5>{Text.title[0]}</h5>
+                <p>{Text.question[0]}</p>
+              </div>
+            </RaisedButton>
+            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+              <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+                <h5>{Text.title[1]}</h5>
+                <p>{Text.question[1]}</p>
+              </div>
+            </RaisedButton>
           </div>
         </SwipeableViews>
       </div>
