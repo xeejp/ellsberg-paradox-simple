@@ -11,7 +11,7 @@ const mapStateToProps = ({ oneone, onetwo, twoone, twotwo }) => ({
 
 const Result = ({ oneone, onetwo, twoone, twotwo }) => (
   <div>
-    <Chart oneone={oneone} onetwo={onetwo} twoone={twoone} twotwo={twotwo} />
+    <Chart oneone={oneone} onetwo={onetwo} twoone={twoone} twotwo={twotwo} expanded={true} />
   </div>
 )
 

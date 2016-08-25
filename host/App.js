@@ -41,7 +41,7 @@ class App extends Component {
         <div>
           <PageButtons />
           <Information />
-          <div><Chart oneone={ans[0][0]} onetwo={ans[0][1]} twoone={ans[1][0]} twotwo={ans[1][1]} /><p></p></div>
+          <div><Chart oneone={ans[0][0]} onetwo={ans[0][1]} twoone={ans[1][0]} twotwo={ans[1][1]} expanded={false} /><p></p></div>
           <Users />
         </div>
       )

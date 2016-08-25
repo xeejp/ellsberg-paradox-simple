@@ -1,4 +1,4 @@
-﻿import React from 'react'
+﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -6,9 +6,24 @@ import Highcharts from 'react-highcharts'
 
 const mapStateToProps = ({}) => ({})
 
-const Chart = ({ oneone, onetwo, twoone, twotwo }) => {
-  return (
-    <Card>
+class Chart extends Component {
+  constructor(props) {
+    super(props)
+    const { expanded } = this.props
+    this.state = { expanded: expanded }
+  }
+  
+  handleExpandChange(expanded) {
+    this.setState({ expanded: expanded })
+  }
+  
+  render() {
+    const { oneone, onetwo, twoone, twotwo } = this.props
+    return (
+    <Card
+      expanded={this.state.expanded}
+      onExpandChange={this.handleExpandChange.bind(this)}
+    >
       <CardHeader
         title={"実験結果"}
         actAsExpander={true}
@@ -92,6 +107,7 @@ const Chart = ({ oneone, onetwo, twoone, twotwo }) => {
       </CardText>
     </Card>
   )
+  }
 }
 
 export default connect()(Chart)
