@@ -24,6 +24,7 @@ defmodule AllaisParadox.Actions do
   def all_reset(data) do
     haction = get_action("reset", %{ participants: data.participants, joined: data.joined, answered: data.answered, rational: 0, irational: 0, })
     paction = get_action("reset", %{
+         question_text: data.question_text,
           sequence: "question1",
           question1: 0,
           question2: 0,
@@ -37,6 +38,12 @@ defmodule AllaisParadox.Actions do
   def send_result(data, result) do
     haction = get_action("result", result)
     paction = get_action("result", result)
+    format(data, haction, dispatch_to_all(data, paction))
+  end
+
+  def update_question(data, question_text) do
+    haction = get_action("qupdate", question_text)
+    paction = get_action("qupdate", question_text)
     format(data, haction, dispatch_to_all(data, paction))
   end
 

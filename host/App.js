@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchContents } from './actions'
 
 import PageButtons from './PageButtons'
+import EditQuestion from './EditQuestion'
 import Information from './Information'
 import Users from './Users'
 
@@ -41,8 +42,9 @@ class App extends Component {
         <div>
           <PageButtons />
           <Information />
-          <div><Chart oneone={ans[0][0]} onetwo={ans[0][1]} twoone={ans[1][0]} twotwo={ans[1][1]} expanded={false} /><p></p></div>
-          <Users />
+          <Users /><br />
+         <Chart oneone={ans[0][0]} onetwo={ans[0][1]} twoone={ans[1][0]} twotwo={ans[1][1]} expanded={false} /><br />
+          <EditQuestion />
         </div>
       )
     }

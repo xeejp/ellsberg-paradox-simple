@@ -2,7 +2,7 @@ defmodule AllaisParadox.Main do
   alias AllaisParadox.Actions
 
   @pages ["waiting", "experiment", "result"]
-  @sequence ["question1", "answered"]
+  @sequence ["question1", "question2", "answered"]
 
   def pages, do: @pages
   def sequence, do: @sequence
@@ -17,11 +17,38 @@ defmodule AllaisParadox.Main do
       onetwo: 0,
       twoone: 0,
       twotwo: 0,
+      question_text: %{
+        'question': %{
+          text: "あなたは2回くじを引きます。それぞれのくじでは1つのオプションを選ぶことができます。",
+          question: ["", ""]
+        },
+        'question1': %{
+          text: "1回目のくじのオプションを選んでください。",
+          title: ["オプションA", "オプションB"],
+          question: [
+             "確実に100万円を手にする。", 
+            "89％の確率で100万円、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
+          ]
+        },
+        'question2': %{
+          text: "2回目のくじのオプションを選んでください。",
+          title: ["オプションA", "オプションB"],
+          question: [
+            "11%の確率で100万円を得る。",
+            "10%の確率で250万円を得る。"
+          ]
+        },
+        'answered': %{
+          text: "回答は終了しました。",
+          question: ["", ""]
+        }
+      },
     }
   end
 
   def new_participant(data) do
     %{
+      question_text: data.question_text,
       sequence: "question1",
       question1: 0,
       question2: 0,

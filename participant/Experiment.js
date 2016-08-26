@@ -7,10 +7,10 @@ import SwipeableViews from 'react-swipeable-views'
 
 import { nextQuestion } from './actions'
 
-import { getText } from './Text'
+//import { getText } from './Text'
 
-const mapStateToProps = ({ sequence, qswap }) => ({
-  sequence, qswap
+const mapStateToProps = ({ sequence, qswap, question_text }) => ({
+  sequence, qswap, question_text
 })
 
 class Experiment extends Component {
@@ -30,9 +30,9 @@ class Experiment extends Component {
   }
   
   render() {
-    const { sequence, qswap } = this.props
-    const Question = getText("question")
-    const Text = getText(sequence, qswap)
+    const { sequence, qswap, question_text } = this.props
+    const Question = question_text["question"]
+    const Text = question_text[sequence]
     return (sequence != "answered")?
       <div style={{height: 'auto'}}>
         <h5>{Question.text}</h5>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Highcharts from 'react-highcharts'
 
-const mapStateToProps = ({}) => ({})
+const mapStateToProps = ({ question_text }) => ({ question_text })
 
 class Chart extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Chart extends Component {
   }
   
   render() {
-    const { oneone, onetwo, twoone, twotwo } = this.props
+    const { oneone, onetwo, twoone, twotwo, question_text } = this.props
     return (
     <Card
       expanded={this.state.expanded}
@@ -41,17 +41,18 @@ class Chart extends Component {
                     enabled: false,
                   },
                   title: {
-                    text: 'はじめの質問でオプションAを選んだ人'
+                    text: 'はじめの質問で' + question_text["question1"].title[0] + 'を選んだ人'
                   },
                   plotOptions: {
                       pie: {
                           dataLabels: {
                               distance: -30,
-                              format: '{point.name}: {point.y:.0f}人',
-                          }
+                              format: '{point.y:.0f}人'
+                          },
+                          showInLegend: true
                      }
-                  },  
-    
+                  },
+                  
                   tooltip: {
                     headerFormat: '<span>{series.name}</span><br>',
                     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
@@ -60,14 +61,14 @@ class Chart extends Component {
                     name: '回答',
                     colorByPoint: true,
                     data: [{
-                      name: '次の質問でオプションAを選んだ',
+                      name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
                       y: oneone,
                     }, {
-                       name: '次の質問でオプションBを選んだ',
+                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
                        y: onetwo,
                     }]
                   }]
-             }} /> : <p>はじめの質問でオプションAを選んだ人はいませんでした。</p>}
+             }} /> : <p>はじめの質問で{question_text["question1"].title[0]}を選んだ人はいませんでした。</p>}
           {(twoone + twotwo != 0)?
             <Highcharts
               config={{
@@ -78,33 +79,34 @@ class Chart extends Component {
                     enabled: false,
                   },
                   title: {
-                    text: 'はじめの質問でオプションBを選んだ人'
+                    text: 'はじめの質問で' + question_text["question1"].title[1] + 'を選んだ人'
                   },
                   plotOptions: {
                       pie: {
                           dataLabels: {
-                              distance: 0,
-                              format: '{point.name}: {point.y:.0f}人'
-                          }
+                              distance: -30,
+                              format: '{point.y:.0f}人'
+                          },
+                          showInLegend: true
                      }
                   },  
     
                   tooltip: {
-                     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> of total<br/>'
+                     headerFormat: '<span>{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> <br/>'
                   },
                   series: [{
                      name: '回答',
                    colorByPoint: true,
                    data: [{
-                       name: '次の質問でオプションBを選んだ',
+                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
                        y: twotwo,
                       }, {
-                       name: '次の質問でオプションAを選んだ',
+                       name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
                        y: twoone,
                    }]
                   }]
-             }} /> : <p>はじめの質問でオプションBを選んだ人はいませんでした。</p>}
+             }} /> : <p>はじめの質問で{question_text["question1"].title[1]}を選んだ人はいませんでした。</p>}
         </span>
       </CardText>
     </Card>
@@ -112,4 +114,4 @@ class Chart extends Component {
   }
 }
 
-export default connect()(Chart)
+export default connect(mapStateToProps)(Chart)

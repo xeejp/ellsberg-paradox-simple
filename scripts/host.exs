@@ -2,6 +2,8 @@ defmodule AllaisParadox.Host do
   alias AllaisParadox.Main
   alias AllaisParadox.Actions
 
+  require Logger
+
   # Actions
   def fetch_contents(data) do
     data
@@ -23,6 +25,7 @@ defmodule AllaisParadox.Host do
     data = data |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, _ } ->
       {id,
         %{
+          question_text: data.question_text,
           sequence: "question1",
           question1: 0,
           question2: 0,
@@ -57,6 +60,14 @@ defmodule AllaisParadox.Host do
                  |> Map.put(:oneone, result["oneone"]) |> Map.put(:onetwo, result["onetwo"]) |> Map.put(:twoone, result["twoone"]) |> Map.put(:twotwo, result["twotwo"])
                  |> Map.put(:answered, 0)
     Actions.send_result(data, result)
+  end
+
+  def update_question(data, question_text) do
+    Logger.debug("IIIIIIIIIIIIIIIIIIIIIIIII")
+    data = data |> Map.put(:question_text, question_text)
+                     |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
+                       { id, value |> Map.put(:question_text, question_text) } end), %{}))
+    Actions.update_question(data, question_text)
   end
 
   # Utilities
