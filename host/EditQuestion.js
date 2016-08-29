@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import {Tabs, Tab} from 'material-ui/Tabs';
+import {Tabs, Tab} from 'material-ui/Tabs'
+import {Card} from 'material-ui/Card'
 import SwipeableViews from 'react-swipeable-views'
-import IconButton from 'material-ui/IconButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ImageEdit from 'material-ui/svg-icons/image/edit'
 import FlatButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog'
@@ -23,8 +24,9 @@ class EditQuestion extends Component {
       question_text: question_text,
       open: false,
       slideIndex: 0,
+      mainSlideIndex: 0,
       default_text: {
-                'question': {
+         'question': {
           text: "あなたは2回くじを引きます。それぞれのくじでは1つのオプションを選ぶことができます。",
           question: ["", ""]
         },
@@ -47,77 +49,15 @@ class EditQuestion extends Component {
         'answered': {
           text: "回答は終了しました。",
           question: ["", ""]
-        }
+        },
+        'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
       }
     }
   }
 
-  handleOpen() {
-    this.setState({ open: true });
-  }
-
-  handleClose() {
-    this.setState({ open: false })
-  }
-
-  handleChange(value, event){
-    var question_text = Object.assign({}, this.state.question_text)
-    var temp = question_text
-    for(var i = 0; i < value.length - 1; i++){
-      temp = temp[value[i]]
-    }
-    temp[value[value.length - 1]] = event.target.value
-    this.setState({ question_text: question_text })
-  }
-
-  handleSlide(value) {
-    this.setState({
-      slideIndex: value
-    })
-  }
-
-  submit() {
-    const { dispatch } = this.props
-    dispatch(updateQuestion(this.state.question_text))
-    this.setState({ open: false })
-  }
-
-  reset(){
-    const { dispatch } = this.props
-    dispatch(updateQuestion(this.state.default_text))
-    this.setState({ question_text: this.state.default_text, open: false})
-  }
-
-  render(){
-    const { page } = this.props
-    const actions = [
-      <FlatButton
-        label="適用"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.submit.bind(this)}
-      />,
-      <FlatButton
-        label="キャンセル"
-        onTouchTap={this.handleClose.bind(this)}
-      />,
-     <FlatButton
-        label="すべてリセット"
-        onTouchTap={this.reset.bind(this)}
-      />,
-    ]
-    return (<div>
-      <IconButton onClick={this.handleOpen.bind(this)} disabled={page != "waiting"}>
-         <ImageEdit />
-      </IconButton>
-      <Dialog
-        title="問題編集画面"
-        actions={actions}
-        modal={false}
-        open={this.state.open}
-        onRequestClose={this.handleClose.bind(this)}
-        autoScrollBodyContent={true}
-      >
+  QuestionTab(){
+    return (
+      <div>
         <TextField
           hintText={"問題の説明"}
           defaultValue={this.state.question_text["question"].text}
@@ -201,6 +141,111 @@ class EditQuestion extends Component {
              /><br />
           </div>
         </SwipeableViews>
+        </div>
+    )
+  }
+
+  WaitingTab() {
+    return (
+      <div style={{height: '100%', position: 'relative'}}>
+        <TextField
+         hintText={"待機画面に表示するテキスト"}
+         defaultValue={this.state.question_text["waiting_text"]}
+         onBlur={this.handleChange.bind(this, ["waiting_text"])}
+         multiLine={true}
+         fullWidth={true}
+         style={{height: 1000}}
+       />
+      </div>
+    )
+  }
+
+  handleOpen() {
+    this.setState({ open: true });
+  }
+
+  handleClose() {
+    this.setState({ open: false })
+  }
+
+  handleChange(value, event){
+    var question_text = Object.assign({}, this.state.question_text)
+    var temp = question_text
+    for(var i = 0; i < value.length - 1; i++){
+      temp = temp[value[i]]
+    }
+    temp[value[value.length - 1]] = event.target.value
+    this.setState({ question_text: question_text })
+  }
+
+  handleSlide(value) {
+    this.setState({
+      slideIndex: value
+    })
+  }
+
+  handleMainSlide(value){
+    this.setState({
+      mainSlideIndex: value
+    })
+  }
+
+  submit() {
+    const { dispatch } = this.props
+    dispatch(updateQuestion(this.state.question_text))
+    this.setState({ open: false })
+  }
+
+  reset(){
+    const { dispatch } = this.props
+    dispatch(updateQuestion(this.state.default_text))
+    this.setState({ question_text: this.state.default_text, open: false})
+  }
+
+  render(){
+    const { page } = this.props
+    const actions = [
+      <FlatButton
+        label="適用"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.submit.bind(this)}
+      />,
+      <FlatButton
+        label="キャンセル"
+        onTouchTap={this.handleClose.bind(this)}
+      />,
+     <FlatButton
+        label="すべてリセット"
+        onTouchTap={this.reset.bind(this)}
+      />,
+    ]
+    return (<div>
+      <FloatingActionButton onClick={this.handleOpen.bind(this)} disabled={page != "waiting"}>
+         <ImageEdit />
+      </FloatingActionButton>
+      <Dialog
+        title="編集画面"
+        actions={actions}
+        modal={false}
+        open={this.state.open}
+        onRequestClose={this.handleClose.bind(this)}
+        autoScrollBodyContent={this.state.mainSlideIndex == 1}
+      >
+        <Tabs
+          onChange={this.handleMainSlide.bind(this)}
+          value={this.state.mainSlideIndex}
+        >
+          <Tab label="待機画面" value={0}/>
+          <Tab label="問題画面" value={1}/>
+        </Tabs>
+        <SwipeableViews
+          index={this.state.mainSlideIndex}
+          onChangeIndex={this.handleMainSlide.bind(this)}
+        >
+         {this. WaitingTab()}
+         {this.QuestionTab()}
+      </SwipeableViews>
       </Dialog>
     </div>)
   }

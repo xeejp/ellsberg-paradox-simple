@@ -41,7 +41,8 @@ defmodule AllaisParadox.Main do
         'answered': %{
           text: "回答は終了しました。",
           question: ["", ""]
-        }
+        },
+        'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
       },
     }
   end

@@ -63,7 +63,6 @@ defmodule AllaisParadox.Host do
   end
 
   def update_question(data, question_text) do
-    Logger.debug("IIIIIIIIIIIIIIIIIIIIIIIII")
     data = data |> Map.put(:question_text, question_text)
                      |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
                        { id, value |> Map.put(:question_text, question_text) } end), %{}))

@@ -7,8 +7,6 @@ import SwipeableViews from 'react-swipeable-views'
 
 import { nextQuestion } from './actions'
 
-//import { getText } from './Text'
-
 const mapStateToProps = ({ sequence, qswap, question_text }) => ({
   sequence, qswap, question_text
 })

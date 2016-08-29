@@ -1,15 +1,25 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 
-const User = ({ id, status }) => (
-  <tr><td>{id}</td><td>{status}</td></tr>
+import { openParticipantPage } from './actions'
+
+const User = ({ id, status, openParticipantPage }) => (
+  <tr><td><a onClick={openParticipantPage(id)}>{id}</a></td><td>{status}</td></tr>
 )
 
 const mapStateToProps = ({ participants, page }) => ({ participants, page })
 
-const UsersList = ({participants, page }) => (
+const mapDispatchToProps = (dispatch) => {
+  const open = bindActionCreators(openParticipantPage, dispatch)
+  return {
+    openParticipantPage: (id) => () => open(id)
+  }
+}
+
+const UsersList = ({participants, page, openParticipantPage }) => (
   <table>
     <thead><tr><th>id</th><th>status</th></tr></thead>
     <tbody>
@@ -19,6 +29,7 @@ const UsersList = ({participants, page }) => (
             key={id}
             id={id}
             status={(page == "waiting" || !participants[id].active)? "待機中" : {"question1": "1問目に回答中", "question2": "2問目に回答中", "answered": "回答済み"}[participants[id].sequence]}
+            openParticipantPage={openParticipantPage}
           />
         ))
       }
@@ -26,7 +37,7 @@ const UsersList = ({participants, page }) => (
   </table>
 )
 
-const Users = ({ participants, page }) => (
+const Users = ({ participants, page, openParticipantPage }) => (
   <div>
     <Card>
       <CardHeader
@@ -38,10 +49,11 @@ const Users = ({ participants, page }) => (
         <UsersList
           participants={participants}
           page={page}
+          openParticipantPage={openParticipantPage}
         />
       </CardText>
     </Card>
   </div>
 )
 
-export default connect(mapStateToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(Users)
