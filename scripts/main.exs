@@ -1,7 +1,7 @@
 defmodule AllaisParadox.Main do
   alias AllaisParadox.Actions
 
-  @pages ["waiting", "experiment", "result"]
+  @pages ["waiting", "description", "experiment", "result"]
   @sequence ["question1", "question2", "answered"]
 
   def pages, do: @pages
@@ -18,33 +18,32 @@ defmodule AllaisParadox.Main do
       twoone: 0,
       twotwo: 0,
       question_text: %{
-        'question': %{
-          text: "あなたは2回くじを引きます。それぞれのくじでは1つのオプションを選ぶことができます。",
-          question: ["", ""]
-        },
-        'question1': %{
-          text: "1回目のくじのオプションを選んでください。",
-          title: ["オプションA", "オプションB"],
-          question: [
-             "確実に100万円を手にする。", 
-            "89％の確率で100万円、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
-          ]
-        },
-        'question2': %{
-          text: "2回目のくじのオプションを選んでください。",
-          title: ["オプションA", "オプションB"],
-          question: [
-            "11%の確率で100万円を得る。",
-            "10%の確率で250万円を得る。"
-          ]
-        },
-        'answered': %{
-          text: "回答は終了しました。",
-          question: ["", ""]
-        },
-        'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
-      },
-    }
+          'question': %{
+              text: "つぎの2つの選択肢のうち、あなたの好む方を選んでください。",
+           },
+           'question1': %{
+             text: "どちらかの選択肢を選んでください。",
+              title: ["オプションA", "オプションB"],
+              question: [
+                "確実に100万円を手にする。", 
+                "89％の確率で100万円、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
+              ]
+            },
+           'question2': %{
+             text: "どちらかの選択肢を選んでください。",
+             title: ["オプションA", "オプションB"],
+             question: [
+               "11%の確率で100万円を得る。",
+               "10%の確率で250万円を得る。"
+             ]
+            },
+            'answered': %{
+              text: "あなたの回答は終了しました。他の参加者の回答が終了するまでこのままお待ちください。",
+           },
+           'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
+           'description_text': "これから、2つの質問をします。\n選択肢のうち、あなたが最も好むものを選択してください。",
+          },
+        }
   end
 
   def new_participant(data) do

@@ -26,12 +26,11 @@ class EditQuestion extends Component {
       slideIndex: 0,
       mainSlideIndex: 0,
       default_text: {
-         'question': {
-          text: "あなたは2回くじを引きます。それぞれのくじでは1つのオプションを選ぶことができます。",
-          question: ["", ""]
+        'question': {
+          text: "つぎの2つの選択肢のうち、あなたの好む方を選んでください。",
         },
         'question1': {
-          text: "1回目のくじのオプションを選んでください。",
+          text: "どちらかの選択肢を選んでください。",
           title: ["オプションA", "オプションB"],
           question: [
              "確実に100万円を手にする。", 
@@ -39,7 +38,7 @@ class EditQuestion extends Component {
           ]
         },
         'question2': {
-          text: "2回目のくじのオプションを選んでください。",
+          text: "どちらかの選択肢を選んでください。",
           title: ["オプションA", "オプションB"],
           question: [
             "11%の確率で100万円を得る。",
@@ -47,10 +46,10 @@ class EditQuestion extends Component {
           ]
         },
         'answered': {
-          text: "回答は終了しました。",
-          question: ["", ""]
+          text: "あなたの回答は終了しました。他の参加者の回答が終了するまでこのままお待ちください。",
         },
         'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
+        'description_text': "これから、2つの質問をします。\n選択肢のうち、あなたが最も好むものを選択してください。",
       }
     }
   }
@@ -89,7 +88,6 @@ class EditQuestion extends Component {
              hintText={this.state.default_text["question1"].title[0]}
              defaultValue={this.state.question_text["question1"].title[0]}
              onBlur={this.handleChange.bind(this, ["question1", "title", 0])}
-             multiLine={true}
            />:<TextField
               hintText={this.state.default_text["question1"].title[0] + "の詳細"}
               defaultValue={this.state.question_text["question1"].question[0]}
@@ -100,7 +98,6 @@ class EditQuestion extends Component {
               hintText={this.state.default_text["question1"].title[1]}
              defaultValue={this.state.question_text["question1"].title[1]}
              onBlur={this.handleChange.bind(this, ["question1", "title", 1])}
-             multiLine={true}
             />:<TextField
                hintText={this.state.default_text["question1"].title[1] + "の詳細"}
                defaultValue={this.state.question_text["question1"].question[1]}

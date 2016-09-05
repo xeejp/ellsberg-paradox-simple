@@ -23,7 +23,7 @@ function* changePageSaga() {
   }
 }
 function* backPageSaga() {
-  const pages = ["experiment", "result", "waiting"]
+  const pages = ["waiting", "description", "experiment", "result"]
   while (true) {
     yield take(`${backPage}`)
     const page = yield select(({ page }) => page)
@@ -40,7 +40,7 @@ function* backPageSaga() {
 
 
 function* nextPageSaga() {
-  const pages = ["experiment", "result", "waiting"]
+  const pages = ["waiting", "description", "experiment", "result"]
   while (true) {
     yield take(`${nextPage}`)
     const page = yield select(({ page }) => page)
