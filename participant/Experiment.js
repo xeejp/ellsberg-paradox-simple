@@ -29,46 +29,46 @@ class Experiment extends Component {
   
   render() {
     const { sequence, qswap, question_text, bingo } = this.props
-    const Question = question_text["question"]
-    const Text = question_text[sequence]
-    return (sequence != "answered")?
+    return (<div>
+    <SwipeableViews index={(sequence == "answered")? 1 : 0} disabled={true}>
       <div style={{height: 'auto'}}>
-        {Question.text.split('\n').map( line => <h5>{line}</h5>)}
+        {question_text["question"].text.split('\n').map( line => <h5>{line}</h5>)}
         <SwipeableViews index={this.state.slideIndex} disabled={true}>
           <div style={{overflow: 'hidden'}}>
-            {Text.text.split('\n').map( line => <p>{line}</p>)}
+            {question_text["question1"].text.split('\n').map( line => <p>{line}</p>)}
             <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-                <h5>{Text.title[0]}</h5>
-                {Text.question[0].split('\n').map( line => <p>{line}</p>)}
+                <h5>{question_text["question1"].title[0]}</h5>
+                {question_text["question1"].question[0].split('\n').map( line => <p>{line}</p>)}
               </div>
             </RaisedButton>
             <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-                <h5>{Text.title[1]}</h5>
-                {Text.question[1].split('\n').map( line => <p>{line}</p>)}
+                <h5>{question_text["question1"].title[1]}</h5>
+                {question_text["question1"].question[1].split('\n').map( line => <p>{line}</p>)}
               </div>
             </RaisedButton>
           </div>
           <div style={{overflow: 'hidden'}}>
-            {Text.text.split('\n').map( line => <p>{line}</p>)}
-            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
+            {question_text["question2"].text.split('\n').map( line => <p>{line}</p>)}
+            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%', color: '#FF0000'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-                <h5>{Text.title[0]}</h5>
+                <h5>{question_text["question2"].title[0]}</h5>
               </div>
             </RaisedButton>
-            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
+            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%', color: '#000000'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
-                <h5>{Text.title[1]}</h5>
+                <h5>{question_text["question2"].title[1]}</h5>
               </div>
             </RaisedButton>
           </div>
         </SwipeableViews>
       </div>
-    : <div>
-      {(bingo)? <p>{Text.bingo}</p> : <p>{Text.nbingo}</p>}
-      {Text.text.split('\n').map( line => <p>{line}</p>)}
+      <div style={{margin: '5%'}}>
+      {(bingo)? <h5>{question_text["answered"].bingo}</h5> : <h5>{question_text["answered"].nbingo}</h5>}
+      {question_text["answered"].text.split('\n').map( line => <p>{line}</p>)}
       </div>
+    </SwipeableViews></div>)
   }
 }
 

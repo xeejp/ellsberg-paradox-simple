@@ -49,7 +49,7 @@ class App extends Component {
             }}
           />
           <Users /><br />
-          <Chart one={ans[0]} two={ans[1]} expanded={false} />
+          <Chart one={ans[0]} two={ans[1]} expanded={false} /><br />
           <EditQuestion />
         </div>
       )
