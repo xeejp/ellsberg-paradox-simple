@@ -7,8 +7,8 @@ import SwipeableViews from 'react-swipeable-views'
 
 import { nextQuestion } from './actions'
 
-const mapStateToProps = ({ sequence, qswap, question_text }) => ({
-  sequence, qswap, question_text
+const mapStateToProps = ({ sequence, qswap, question_text, bingo }) => ({
+  sequence, qswap, question_text, bingo
 })
 
 class Experiment extends Component {
@@ -28,7 +28,7 @@ class Experiment extends Component {
   }
   
   render() {
-    const { sequence, qswap, question_text } = this.props
+    const { sequence, qswap, question_text, bingo } = this.props
     const Question = question_text["question"]
     const Text = question_text[sequence]
     return (sequence != "answered")?
@@ -55,19 +55,20 @@ class Experiment extends Component {
             <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
                 <h5>{Text.title[0]}</h5>
-                {Text.question[0].split('\n').map( line => <p>{line}</p>)}
               </div>
             </RaisedButton>
             <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}} labelStyle={{position: 'absolute', top: '50%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
                 <h5>{Text.title[1]}</h5>
-                {Text.question[1].split('\n').map( line => <p>{line}</p>)}
               </div>
             </RaisedButton>
           </div>
         </SwipeableViews>
       </div>
-    : <div>{Text.text.split('\n').map( line => <p>{line}</p>)}</div>
+    : <div>
+      {(bingo)? <p>{Text.bingo}</p> : <p>{Text.nbingo}</p>}
+      {Text.text.split('\n').map( line => <p>{line}</p>)}
+      </div>
   }
 }
 

@@ -1,6 +1,6 @@
-defmodule AllaisParadox.Actions do
-  alias AllaisParadox.Participant
-  alias AllaisParadox.Host
+defmodule EllsbergParadoxSimple.Actions do
+  alias EllsbergParadoxSimple.Participant
+  alias EllsbergParadoxSimple.Host
 
   def change_page(data, page) do
     action = get_action("change page", page)
@@ -28,6 +28,7 @@ defmodule AllaisParadox.Actions do
           sequence: "question1",
           question1: 0,
           question2: 0,
+          bingo: false,
           active: true,
           joined: Map.size(data.participants)
         })
@@ -53,7 +54,7 @@ defmodule AllaisParadox.Actions do
   end
 
   def next_question(data, id, selected) do
-    paction = get_action("next question", selected)
+    paction = get_action("next question", %{ next: selected["next"], selected: selected["selected"], bingo: data.participants[id].bingo })
     haction = get_action("answer", %{id: id, participant: data.participants[id], answered: data.answered})
     format(data, haction, dispatch_to(id, paction))
   end

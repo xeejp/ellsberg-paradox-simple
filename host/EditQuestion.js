@@ -26,32 +26,31 @@ class EditQuestion extends Component {
       slideIndex: 0,
       mainSlideIndex: 0,
       default_text: {
-        'question': {
-          text: "つぎの2つの選択肢のうち、あなたの好む方を選んでください。",
-        },
-        'question1': {
-          text: "どちらかの選択肢を選んでください。",
-          title: ["オプションA", "オプションB"],
-          question: [
-             "確実に100万円を手にする。", 
-            "89％の確率で100万円、10%の確率で250万円を獲得する。ただし、1%の確率で何ももらえない。"
-          ]
-        },
-        'question2': {
-          text: "どちらかの選択肢を選んでください。",
-          title: ["オプションA", "オプションB"],
-          question: [
-            "11%の確率で100万円を得る。",
-            "10%の確率で250万円を得る。"
-          ]
-        },
-        'answered': {
-          text: "あなたの回答は終了しました。他の参加者の回答が終了するまでこのままお待ちください。",
-        },
-        'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
-        'description_text': "これから、2つの質問をします。\n選択肢のうち、あなたが最も好むものを選択してください。",
+          'question': {
+              text: "壺が2つあり、それぞれ合計100個の赤いボールと黒いボールが入っている。\n壺Aには50個の赤いボールと50個の黒いボールが入っている。\n壺Bには合計100個の赤いボールと黒いボールが入っているが、その割合はわからない。\nあなたは、壺から取り出されるボールが赤か黒かを充てることができれば100ドルの賞金を得られる。",
+           },
+           'question1': {
+             text: "どちらの壺からボールを取り出すかを選んでください。",
+              title: ["壺A", "壺B"],
+              question: [
+                "赤いボールと黒いボールが50個ずつ入っている。", 
+                "赤いボールと黒いボールが合計100個入っているが、その比率はわからない。"
+              ]
+            },
+           'question2': {
+             text: "赤いボールと黒いボールどちらが取り出されると思いますか。",
+             title: ["赤いボール", "黒いボール"],
+             question: ["", ""]
+            },
+            'answered': {
+              text: "回答は終了しました。他の参加者の回答が終了するまでこのままお待ちください。",
+              bingo: "当たりました！おめでとうございます！",
+              nbingo: "残念！はずれです！"
+           },
+           'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
+           'description_text': "これから、2つの質問をします。\n選択肢のうち、あなたが最も好むものを選択してください。",
+          },
       }
-    }
   }
 
   QuestionTab(){
@@ -119,22 +118,12 @@ class EditQuestion extends Component {
               defaultValue={this.state.question_text["question2"].title[0]}
               onBlur={this.handleChange.bind(this, ["question2", "title", 0])}
                multiLine={true}
-            />:<TextField
-              hintText={this.state.default_text["question2"].title[0] + "の詳細"}
-              defaultValue={this.state.question_text["question2"].question[0]}
-              onBlur={this.handleChange.bind(this, ["question2", "question", 0])}
-              multiLine={true}
             /><br />
              <TextField
                hintText={this.state.default_text["question2"].title[1]}
                defaultValue={this.state.question_text["question2"].title[1]}
                onBlur={this.handleChange.bind(this, ["question2", "title", 1])}
                 multiLine={true}
-             />:<TextField
-               hintText={this.state.default_text["question2"].title[0] + "の詳細"}
-               defaultValue={this.state.question_text["question2"].question[1]}
-               onBlur={this.handleChange.bind(this, ["question2", "question", 1])}
-               multiLine={true}
              /><br />
           </div>
         </SwipeableViews>

@@ -43,10 +43,6 @@ class PageButtons extends Component {
         </Step>
       )
     }
-    if(page == "experiment" && joined == answered) {
-      const { dispatch } = this.props
-      dispatch(submitPage("result"))
-    }
     return (
       <span>
         <Stepper activeStep={pages.indexOf(page)} linear={false}>

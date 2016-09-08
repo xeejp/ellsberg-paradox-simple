@@ -18,7 +18,7 @@ class Chart extends Component {
   }
   
   render() {
-    const { oneone, onetwo, twoone, twotwo, question_text } = this.props
+    const { one, two, question_text } = this.props
     return (
     <Card
       expanded={this.state.expanded}
@@ -30,84 +30,58 @@ class Chart extends Component {
         showExpandableButton={true}
       />
       <CardText expandable={true}>
-        <span>
-          {(oneone + onetwo != 0)?
-            <Highcharts
-              config={{
-                  chart: {
-                    type: 'pie'
+        <Highcharts config={
+               {
+             chart: {
+                  type: 'column'
+              },
+              credits: {
+                enabled: false
+              },
+
+              title: {
+                  text: '実験結果'
+             },
+             xAxis: {
+                 type: 'category'
+             },
+              yAxis: {
+                 title: {
+                      text: '人数'
                   },
-                  credits : {
-                    enabled: false,
-                  },
-                  title: {
-                    text: 'はじめの質問で' + question_text["question1"].title[0] + 'を選んだ人'
-                  },
-                  plotOptions: {
-                      pie: {
-                          dataLabels: {
-                              distance: -30,
-                              format: '{point.y:.0f}人'
-                          },
-                          showInLegend: true
+                  allowDecimals: false
+             },
+              legend: {
+                 enabled: false
+              },
+             plotOptions: {
+                  series: {
+                     borderWidth: 0,
+                     dataLabels: {
+                         enabled: true,
+                         format: '{point.y:.0f}人'
                      }
-                  },
-                  
-                  tooltip: {
-                    headerFormat: '<span>{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
-                  },
-                  series: [{
-                    name: '回答',
-                    colorByPoint: true,
-                    data: [{
-                      name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
-                      y: oneone,
-                    }, {
-                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
-                       y: onetwo,
-                    }]
+                  }
+             },
+
+             tooltip: {
+                  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人/b><br/>'
+             },
+
+             series: [{
+                 name: '壺',
+                 colorByPoint: true,
+                 data: [{
+                     name: '壺Aを選んだ人',
+                      y: one,
+                 }, {
+                     name: '壺Bを選んだ人',
+                      y: two,
                   }]
-             }} /> : <p>はじめの質問で{question_text["question1"].title[0]}を選んだ人はいませんでした。</p>}
-          {(twoone + twotwo != 0)?
-            <Highcharts
-              config={{
-                  chart: {
-                    type: 'pie'
-                  },
-                  credits : {
-                    enabled: false,
-                  },
-                  title: {
-                    text: 'はじめの質問で' + question_text["question1"].title[1] + 'を選んだ人'
-                  },
-                  plotOptions: {
-                      pie: {
-                          dataLabels: {
-                              distance: -30,
-                              format: '{point.y:.0f}人'
-                          },
-                          showInLegend: true
-                     }
-                  },  
-    
-                  tooltip: {
-                     headerFormat: '<span>{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b> <br/>'
-                  },
-                  series: [{
-                     name: '回答',
-                   colorByPoint: true,
-                   data: [{
-                       name: '次の質問で' + question_text["question2"].title[1] + 'を選んだ人',
-                       y: twotwo,
-                      }, {
-                       name: '次の質問で' + question_text["question2"].title[0] + 'を選んだ人',
-                       y: twoone,
-                   }]
-                  }]
-             }} /> : <p>はじめの質問で{question_text["question1"].title[1]}を選んだ人はいませんでした。</p>}
-        </span>
+             }]
+          }
+        } />
       </CardText>
     </Card>
   )

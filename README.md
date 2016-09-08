@@ -1,1 +1,1 @@
-# Allais Paradox
+# Ellsberg Paradox Simple

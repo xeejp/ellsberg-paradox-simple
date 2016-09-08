@@ -1,5 +1,7 @@
-defmodule AllaisParadox.Participant do
-  alias AllaisParadox.Actions
+defmodule EllsbergParadoxSimple.Participant do
+  alias EllsbergParadoxSimple.Actions
+
+  require Logger
 
   # Actions
   def fetch_contents(data, id) do
@@ -13,7 +15,12 @@ defmodule AllaisParadox.Participant do
       data = data |> put_in([:participants, id, :question1], selected["selected"])
     else
       data = data |> put_in([:participants, id, :question2], selected["selected"])
-                  |> Map.put(:answered, data.answered + 1)
+                       |> Map.put(:answered, data.answered + 1)
+                       |> put_in([:participants, id, :bingo], case data.participants[id].question1 do
+                         1 -> :rand.uniform(2) == selected["selected"]
+                         2 -> :rand.uniform(100) <= :rand.uniform(100) && selected["selected"] == 1
+                         _ -> false
+                      end)
     end
     Actions.next_question(data, id, selected)
   end
