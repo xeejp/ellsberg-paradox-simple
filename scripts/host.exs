@@ -53,7 +53,7 @@ defmodule EllsbergParadoxSimple.Host do
 
   def send_result(data, result) do
     data = data  |> Map.put(:participants, Enum.into(Enum.map(data.participants, fn { id, value } ->
-      {id, value |> Map.put(:one, result["one"]) |> Map.put(:onetwo, result["two"])} end), %{}))
+      {id, value |> Map.put(:one, result["one"]) |> Map.put(:two, result["two"])} end), %{}))
                  |> Map.put(:one, result["one"]) |> Map.put(:two, result["two"])
                  |> Map.put(:answered, 0)
     Actions.send_result(data, result)
