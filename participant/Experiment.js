@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import RaisedButton from 'material-ui/RaisedButton'
+import { Card, CardText} from 'material-ui/Card'
 import SwipeableViews from 'react-swipeable-views'
 
 import { nextQuestion } from './actions'
@@ -29,7 +30,9 @@ class Experiment extends Component {
   
   render() {
     const { sequence, qswap, question_text, bingo } = this.props
-    return (<div>
+    return (
+      <Card><CardText>
+      <div>
     <SwipeableViews index={(sequence == "answered")? 1 : 0} disabled={true}>
       <div style={{height: 'auto'}}>
         {question_text["question"].text.split('\n').map( line => <h5>{line}</h5>)}
@@ -51,12 +54,12 @@ class Experiment extends Component {
           </div>
           <div style={{overflow: 'hidden'}}>
             {question_text["question2"].text.split('\n').map( line => <p>{line}</p>)}
-            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%', color: '#FF0000'}}>
+            <RaisedButton onClick={this.next.bind(this, 1)} style={{float:  'left', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
                 <h5>{question_text["question2"].title[0]}</h5>
               </div>
             </RaisedButton>
-            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%', color: '#000000'}}>
+            <RaisedButton onClick={this.next.bind(this, 2)} style={{float: 'right', width: '40%', height: '300px', position: 'relative', margin: '5%'}}>
               <div style={{position: 'absolute', top: '40%', left: '50%', width: '100%', margin: '-1.5em 0 0 -50%'}}>
                 <h5>{question_text["question2"].title[1]}</h5>
               </div>
@@ -68,7 +71,8 @@ class Experiment extends Component {
       {(bingo)? <h5>{question_text["answered"].bingo}</h5> : <h5>{question_text["answered"].nbingo}</h5>}
       {question_text["answered"].text.split('\n').map( line => <p>{line}</p>)}
       </div>
-    </SwipeableViews></div>)
+    </SwipeableViews></div>
+    </CardText></Card>)
   }
 }
 
