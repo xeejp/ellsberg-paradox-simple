@@ -1,7 +1,7 @@
 defmodule EllsbergParadoxSimple.Mixfile do 
   use Mix.Project 
   def project do 
-    [app: :ellsberg_paradox_simple, 
+    [app: :xee_ellsberg_paradox_simple, 
      version: "0.1.0", 
      build_path: "../../_build", 
      config_path: "../../config/config.exs", 
