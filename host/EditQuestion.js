@@ -13,6 +13,8 @@ import Snackbar from 'material-ui/Snackbar'
 
 import { updateQuestion, fetchContents } from './actions'
 
+import { ReadJSON } from '../util/ReadJSON'
+
 const mapStateToProps = ({ question_text, page }) => ({
   question_text, page
 })
@@ -21,38 +23,20 @@ class EditQuestion extends Component {
   constructor(props){
     super(props)
     const { question_text } = this.props
+    var default_text = question_text
+    if(!question_text) {
+      default_text = ReadJSON().dynamic_text
+      const { dispatch } = this.props
+      dispatch(updateQuestion(default_text))
+    }
     this.state = {
-      question_text: question_text,
+      question_text: default_text,
       open: false,
       snack: false,
       message: "設定を送信しました。",
       slideIndex: 0,
       mainSlideIndex: 0,
-      default_text: {
-          'question': {
-              text: "壺が2つあり、それぞれ合計100個の赤いボールと黒いボールが入っています。\n壺Aには50個の赤いボールと50個の黒いボールが入っています。\n壺Bには合計100個の赤いボールと黒いボールが入っていますが、その割合はわかりません。\nあなたは、壺から取り出されるボールが赤か黒かを当てることができれば100ドルの賞金を得らます。",
-           },
-           'question1': {
-             text: "どちらの壺からボールを取り出すかを選んでください。",
-              title: ["壺A", "壺B"],
-              question: [
-                "赤いボールと黒いボールが50個ずつ入っている。", 
-                "赤いボールと黒いボールが合計100個入っているが、その比率はわからない。"
-              ]
-            },
-           'question2': {
-             text: "赤いボールと黒いボールどちらが取り出されると思いますか。",
-             title: ["赤いボール", "黒いボール"],
-             question: ["", ""]
-            },
-            'answered': {
-              text: "回答は終了しました。他の参加者の回答が終了するまでこのままお待ちください。",
-              bingo: "当たりました！おめでとうございます！",
-              nbingo: "残念！はずれです！"
-           },
-           'waiting_text': "参加者の登録を待っています。\nこの画面のまましばらくお待ちください。",
-           'description_text': "これから、2つの質問をします。\n選択肢のうち、あなたが最も好むものを選択してください。",
-          },
+      default_text: ReadJSON().dynamic_text,
       }
   }
 

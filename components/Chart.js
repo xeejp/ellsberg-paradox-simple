@@ -71,13 +71,13 @@ class Chart extends Component {
              },
 
              series: [{
-                 name: '壺',
+                 name: '回答',
                  colorByPoint: true,
                  data: [{
-                     name: '壺Aを選んだ人',
+                     name: question_text["question1"]["title"][0] + 'を選んだ人',
                       y: one,
                  }, {
-                     name: '壺Bを選んだ人',
+                     name: question_text["question1"]["title"][1] + 'を選んだ人',
                       y: two,
                   }]
              }]
