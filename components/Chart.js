@@ -4,6 +4,7 @@ import throttle from 'react-throttle-render'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Highcharts from 'react-highcharts'
+import { ReadJSON } from '../util/ReadJSON'
 
 const mapStateToProps = ({ question_text }) => ({ question_text })
 
@@ -20,13 +21,15 @@ class Chart extends Component {
 
   render() {
     const { one, two, question_text } = this.props
+    var text = ReadJSON().static_text["comp_chart"]
+    if(!question_text) return null
     return (
     <Card
       expanded={this.state.expanded}
       onExpandChange={this.handleExpandChange.bind(this)}
     >
       <CardHeader
-        title={"実験結果"}
+        title={text["title"]}
         actAsExpander={true}
         showExpandableButton={true}
       />
@@ -41,14 +44,14 @@ class Chart extends Component {
               },
 
               title: {
-                  text: '実験結果'
+                  text: text["title"]
              },
              xAxis: {
                  type: 'category'
              },
               yAxis: {
                  title: {
-                      text: '人数'
+                      text: text["people"]
                   },
                   allowDecimals: false
              },
@@ -60,24 +63,24 @@ class Chart extends Component {
                      borderWidth: 0,
                      dataLabels: {
                          enabled: true,
-                         format: '{point.y:.0f}人'
+                         format: '{point.y:.0f}' + text["person_unit"]
                      }
                   }
              },
 
              tooltip: {
                   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}人</b><br/>'
+                  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}' + text["person_unit"] + '</b><br/>'
              },
 
              series: [{
-                 name: '回答',
+                 name: text["answer"],
                  colorByPoint: true,
                  data: [{
-                     name: question_text["question1"]["title"][0] + 'を選んだ人',
+                     name: question_text["question1"]["title"][0] + text["choice"],
                       y: one,
                  }, {
-                     name: question_text["question1"]["title"][1] + 'を選んだ人',
+                     name: question_text["question1"]["title"][1] + text["choice"],
                       y: two,
                   }]
              }]
